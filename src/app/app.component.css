@@ -69,8 +69,7 @@ ul p {
 ul li:hover {
     color: green;
     box-shadow: none;
-    border: 1px solid rgb(7, 121, 203);;
-
+    border: 1px solid rgb(7, 121, 203);
 }
 
 .btn {
