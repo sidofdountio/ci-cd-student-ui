@@ -32,7 +32,7 @@ jobs:
       run : npm test -- --browsers=ChromeHeadless --watch=false
 
     - name: Build Docker Image
-      uses: docker/build-push-action@v6
+      uses: docker/build-push-action@v3
       with:
         context: .
         dockerfile: Dockerfile
