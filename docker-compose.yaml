@@ -1,0 +1,16 @@
+services:
+  devops-skills-ui:
+    container_name: devops-skills-ui
+    build: .
+    image: devops-skills-ui:v1.0.0
+    restart: unless-stopped
+    ports:
+      - 30002:80
+    expose:
+      - 30002
+    networks:
+      - appUI
+    
+networks:
+  appUI:
+    driver: bridge

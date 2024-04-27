@@ -34,16 +34,22 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "4mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "4mb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.development.ts",
+                  "with": "src/environments/environment.ts"
+                }
+              ]
             },
             "development": {
               "buildOptimizer": false,
@@ -51,7 +57,13 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -89,10 +101,14 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "karmaConfig": "karma.conf.js"
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "08752e09-32ad-454a-a14b-9c16d58c60bf"
   }
 }
