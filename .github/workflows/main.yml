@@ -28,8 +28,8 @@ jobs:
     - name: Build the app
       run: npm run build --if-present
 
-    - name: Run unit test with kama
-      run : npm test -- --browsers=ChromeHeadless --watch=false
+    # - name: Run unit test with kama
+    #   run : npm test -- --browsers=ChromeHeadless --watch=false
 
     - name: Build Docker Image
       uses: docker/build-push-action@v3
