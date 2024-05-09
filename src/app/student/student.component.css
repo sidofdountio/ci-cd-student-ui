@@ -1,0 +1,104 @@
+:host {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@media screen and (max-width: 650px) {}
+
+h1 {
+    text-transform: uppercase;
+}
+
+ul {
+    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+}
+
+ul li {
+    border: 1px solid #ccc;
+    background: white;
+    box-shadow: 5px 5px 10px #333;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    list-style: none;
+    padding: 14px;
+    width: 100%;
+    cursor: pointer;
+}
+
+ul p {
+    text-align: center;
+    font-weight: 800;
+}
+
+ul li:hover {
+    color: green;
+    box-shadow: none;
+    border: 1px solid rgb(7, 121, 203);
+    padding: 10px;
+}
+
+.custorm-btn {
+    border-radius: 15px;
+    font-weight: 800;
+    padding: 10px;
+    border: 1px solid rgb(7, 121, 203);
+    background-color: rgb(7, 121, 203);
+    box-shadow: 5px 5px 10px #333;
+    color: white;
+    transition: ease-in;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.custorm-btn,input{
+    width: 400px;
+}
+
+.delete {
+    color: #f85149;
+    display: none;
+    position: relative;
+}
+
+li:hover .delete {
+    display: inline;
+    padding: 0px;
+    cursor: pointer;
+    transition: none;
+    left: 200px;
+}
+
+.number {
+    color: #238636;
+    font-weight: bold;
+}
+
+form input {
+    display: block;
+    margin: 10px;
+}
+
+input {
+    border: 2px solid #ccc;
+    padding: 15px;
+    border-radius: 40px;
+    background-color: white;
+    color: #4c4cc1;;
+    font-weight: 800;
+    font-size: 18px;
+    font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+    letter-spacing: 1,5px;
+}
+
+input:focus {
+    border: 2px solid #4c4cc1;
+    outline: #4c4cc1;
+}
+

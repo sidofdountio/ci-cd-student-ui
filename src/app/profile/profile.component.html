@@ -1,0 +1,90 @@
+<div class="container mt-4">
+    <div class="row gutters">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+            <div class="card h-100" *ngIf="studentById">
+                <div class="card-body">
+                    <div class="account-settings">
+                        <div class="user-profile">
+                            <div class="user-avatar">
+                                <img src="" alt="{{studentById.lastName }}">
+                            </div>
+                            <h5 class="user-name">{{studentById.lastName }} {{ studentById.firstName}}</h5>
+                            <h6 class="user-email">{{studentById.email }}</h6>
+                        </div>
+                        <div class="about">
+                            <h5 class="mb-2 text-primary">About</h5>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12" *ngIf="studentById">
+            <div class="card h-100">
+                <div class="card-body">
+                    <form #studentForm="ngForm" (ngSubmit)="onUpdate(studentForm.value)">
+                        <div class="row gutters">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <h6 class="mb-3 text-primary">Student Details</h6>
+                            </div>
+
+
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="fullName">First Name</label>
+                                    <input type="text" class="form-control" name="firstName"
+                                        value="{{studentById.firstName}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="fullName">Last Name</label>
+                                    <input type="text" class="form-control" name="firstName"
+                                        value="{{studentById.lastName}}">
+                                </div>
+
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="eMail">Email</label>
+                                    <input type="email" class="form-control" name="email"
+                                        placeholder="{{studentById.email}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Gender</label>
+                                    <input type="text" class="form-control" name="gender">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gutters">
+
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="Street">Date of birth</label>
+                                    <input type="name" class="form-control" name="dob" value="{{studentById.dob}}">
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="ciTy">Place of birth</label>
+                                    <input type="name" class="form-control" name="placeOfBorn"
+                                        value="{{studentById.placeOfBorn}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gutters ">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="text-right">
+                                    <button type="button" id="submit" name="submit"
+                                        class="btn btn-secondary">Cancel</button>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button type="button" id="submit" name="submit"
+                                        class="btn btn-primary">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

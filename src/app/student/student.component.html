@@ -1,0 +1,35 @@
+<h1 class="text-center fs-2">{{ title }}</h1>
+<div class="container pt-3 mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Register New Student</h3>
+      <div class="form">
+        <form #studentForm="ngForm" (ngSubmit)="saveStudent(studentForm.value)">
+          <input type="text" placeholder="Your First Name" name="firstName" ngModel required>
+          <input type="text" placeholder="Your Email" name="email" ngModel required>
+          <button class="custorm-btn" [disabled]="studentForm.invalid" type="submit">Add new student</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="student-list">
+        <h2>Student List </h2>
+        <ul>
+          <div *ngIf="(studentSize === 0)">
+            <p>No student yet !</p>
+          </div>
+          <li *ngFor="let student of students" (click)="onProfile(student.id)">
+            <span class="number">{{student.id}} </span>
+            <span>{{student.firstName}}</span>
+            <span>{{student.email }}</span>
+            <span  class="material-symbols-outlined delete">
+              delete
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
