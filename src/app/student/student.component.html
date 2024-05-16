@@ -1,35 +1,71 @@
-<h1 class="text-center fs-2">{{ title }}</h1>
+<h1 class="text-center fs-2 mt-4 fw-bold text-primary ">{{ title }}</h1>
 <div class="container pt-3 mt-4">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4 mb-4">
       <h3>Register New Student</h3>
       <div class="form">
         <form #studentForm="ngForm" (ngSubmit)="saveStudent(studentForm.value)">
-          <input type="text" placeholder="Your First Name" name="firstName" ngModel required>
-          <input type="text" placeholder="Your Email" name="email" ngModel required>
-          <button class="custorm-btn" [disabled]="studentForm.invalid" type="submit">Add new student</button>
+          <div class="mb-3"><input type="text" placeholder="Your First Name" name="firstName" ngModel required></div>
+          <div class="mb-3">
+            <input type="email" placeholder="Your Email" name="email" ngModel required>
+          </div>
+          <div class="mb-3">
+            <select  aria-label="Default select example" name="gender" ngModel>
+              <option selected>Gender</option>
+              <option value="FEMALE">FEMALE</option>
+              <option value="MALE">MALE</option>
+            </select>
+          </div>
+          <button mat-raised-button color="primary" [disabled]="studentForm.invalid" type="submit">Add new student</button>
         </form>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="student-list">
-        <h2>Student List </h2>
-        <ul>
-          <div *ngIf="(studentSize === 0)">
-            <p>No student yet !</p>
+    <div class="col-md-8 mt-4">
+      <h2>Student List </h2>
+      <div *ngIf="(studentSize === 0)">
+        <p>No student yet !</p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive user-dashboard-info-box  mb-0 bg-white p-4 shadow-sm">
+            <table class="table table-sm manage-candidates-top mb-0">
+              <thead>
+                <tr>
+                  <th>Candidate Name</th>
+                  <th class="text-center">Gender</th>
+                  <th class="action text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let student of students" (click)="onProfile(student.id)">
+                <tr class="candidates-list">
+                  <td class="title">
+                    <div class="thumb">
+                      <img class="img-fluid" [src]="student.imageUrl" alt="{{student.firstName}}">
+                    </div>
+                    <div class="candidate-list-details">
+                      <div class="candidate-list-info">
+                        <div class="candidate-list-title">
+                          <h5 class="mb-0">{{student.firstName}} {{student.lastName}}</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="candidate-list-favourite-time text-center">
+                    <span class="candidate-list-time order-1">{{ student.gender}}</span>
+                  </td>
+                  <td>
+                    <ul class="list-unstyled mb-0 d-flex justify-content-end">
+                      <li (click)="onProfile(student.id)"> <mat-icon>edit</mat-icon></li>
+                      <li (click)="onDelete(student.id)"><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><mat-icon>delete</mat-icon></a></li>
+                    </ul>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <li *ngFor="let student of students" (click)="onProfile(student.id)">
-            <span class="number">{{student.id}} </span>
-            <span>{{student.firstName}}</span>
-            <span>{{student.email }}</span>
-            <span  class="material-symbols-outlined delete">
-              delete
-            </span>
-          </li>
-        </ul>
+        </div>
       </div>
     </div>
   </div>
-
 </div>
-

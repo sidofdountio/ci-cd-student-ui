@@ -10,11 +10,13 @@ import { StudentService } from '../service/student.service';
   styleUrls: ['./student.component.css']
 })
 export class StudentComponent implements OnInit{
+
+
   private readonly notifier: NotifierService;
   title = 'devOps-skills-student';
   students: Student[] = [];
   studentSize: number = 0;
- 
+  imageUrl: any;
 
   constructor(private service: StudentService,
     notifierService: NotifierService,
@@ -31,6 +33,9 @@ export class StudentComponent implements OnInit{
       (response) => {
         this.students = response;
         this.studentSize = response.length;
+        for (const iterator of this.students) {
+        
+        }
         this.notifier.notify('default','Students Loaded');
       }, () => {
         this.notifier.notify("error","An error occure while fetching students !");
@@ -55,5 +60,13 @@ export class StudentComponent implements OnInit{
   onProfile(studenId:any){
     this.router.navigate(['/profile' ,studenId]);
     
+  }
+
+  getStudentImage(imageUrl: string) {
+    this.service.getStudentImage(imageUrl)
+      .subscribe((response) => {
+        this.imageUrl = response.url;
+        console.log(this.imageUrl)
+      });
   }
 }

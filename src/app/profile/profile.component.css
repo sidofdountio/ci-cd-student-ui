@@ -1,6 +1,6 @@
 body {
     margin-top: 20px;
-  
+
 }
 
 .account-settings .user-profile {
@@ -37,3 +37,6 @@ body {
     text-align: center;
 }
 
+.file-input {
+    display: none;
+}

@@ -6,5 +6,6 @@ export interface Student {
     dob: string,
     gender: any,
     placeOfBorn: any,
-    code: string
+    code: string,
+    imageUrl:string
 }
