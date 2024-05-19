@@ -51,4 +51,5 @@ jobs:
         context: .
         dockerfile: Dockerfile
         push: true
+        platforms: linux/amd64
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/devops-skills-ui:v1.0.0
