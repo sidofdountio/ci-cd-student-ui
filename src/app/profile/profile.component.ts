@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Student } from '../model/student';
 import { StudentService } from '../service/student.service';
-import { BehaviorSubject } from 'rxjs';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-profile',
@@ -15,9 +15,14 @@ export class ProfileComponent implements OnInit {
   fileName: any;
   fileUpload: any;
   id: any;
-  diplayImage:any;
+  diplayImage: any;
+  private readonly notifier: NotifierService;
 
-  constructor(private route: ActivatedRoute, private studentService: StudentService) {
+  constructor(private route: ActivatedRoute, 
+    private studentService: StudentService, 
+    notifierService: NotifierService, 
+    private router:Router) {
+    this.notifier = notifierService;
   }
 
   ngOnInit(): void {
@@ -28,26 +33,44 @@ export class ProfileComponent implements OnInit {
       },
       (error) => { }
     )
+
+  }
+
+  onUpdate(studentToUpdate: Student) {
     
+    console.log(studentToUpdate)
+    this.studentService.editStudent(studentToUpdate).subscribe(
+      (response) => {
+        this.notifier.notify("success", "student edited !");
+      },
+      () => {
+        this.notifier.notify("error", "An error occure while editing student !");
+      }
+    )
+
   }
 
-  onUpdate(arg0: any) {
-
-  }
-
-  goBack(arg0: any) {
-
+  goBack() {
+    this.router.navigate(['/student'])
   }
 
   onFileSelected(event, id: number) {
+    const formData = new FormData();
     const file: File = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      this.diplayImage = reader.result;
+    }
+    reader.readAsDataURL(file);
+
     if (file) {
       this.fileName = file.name;
-      const formData = new FormData();
       formData.append("file", file);
-      this.studentService.uploadStudentImageUrl(formData, id).subscribe(
-        () => { }, () => { }
-      )
     }
+    this.studentService.uploadStudentImageUrl(formData, id).subscribe(
+      () => {
+        this.notifier.notify("success", "File uploaded!");
+      }, () => { }
+    )
   }
 }

@@ -2,70 +2,121 @@
 <div class="container pt-3 mt-4">
   <div class="row">
     <div class="col-md-4 mb-4">
-      <h3>Register New Student</h3>
-      <div class="form">
+      <div class="form card">
+        <h3>Register New Student</h3>
         <form #studentForm="ngForm" (ngSubmit)="saveStudent(studentForm.value)">
-          <div class="mb-3"><input type="text" placeholder="Your First Name" name="firstName" ngModel required></div>
+          <div class="mb-3"><input type="text" placeholder="Your First Name" class="form-control" name="firstName"
+              ngModel required></div>
+          <div class="mb-3"><input type="text" placeholder="Course" class="form-control" name="code"
+              ngModel required></div>
           <div class="mb-3">
-            <input type="email" placeholder="Your Email" name="email" ngModel required>
+            <input type="email" placeholder="Your Email" name="email" class="form-control" ngModel required>
           </div>
           <div class="mb-3">
-            <select  aria-label="Default select example" name="gender" ngModel>
-              <option >Gender</option>
-              <option selected value="FEMALE">FEMALE</option>
+            <label for="form-select">Gender</label>
+            <select aria-label="Default select example" name="gender" class="form-select" ngModel>
+              <option selected="true" value="FEMALE">FEMALE</option>
               <option value="MALE">MALE</option>
             </select>
           </div>
-          <button mat-raised-button color="primary" [disabled]="studentForm.invalid" type="submit">Add new student</button>
+          <div class="mb-3">
+            <button class="add-btn" mat-raised-button color="primary" [disabled]="studentForm.invalid" type="submit">Add
+              New Student</button>
+          </div>
         </form>
       </div>
     </div>
     <div class="col-md-8 mt-4">
       <h2>Student List </h2>
-      <div *ngIf="(studentSize === 0)">
+      <div class="d-flex justify-content-between">
+        <div [matBadge]="studentSize" matBadgeOverlap="false" class="demo-section">Number Of Student</div>
+        <button mat-icon-button class="excel" (click)="printReport()"><mat-icon>
+            description
+          </mat-icon></button>
+      </div>
+      <div *ngIf="(students.length === 0)">
         <p>No student yet !</p>
       </div>
 
       <div class="row">
         <div class="col-md-12">
-          <div class="table-responsive user-dashboard-info-box  mb-0 bg-white p-4 shadow-sm">
-            <table class="table table-sm manage-candidates-top mb-0">
-              <thead>
-                <tr>
-                  <th>Candidate Name</th>
-                  <th class="text-center">Gender</th>
-                  <th class="action text-right">Action</th>
-                </tr>
-              </thead>
-              <tbody *ngFor="let student of students" (click)="onProfile(student.id)">
-                <tr class="candidates-list">
-                  <td class="title">
-                    <div class="thumb">
-                      <img class="img-fluid" [src]="student.imageUrl" alt="{{student.firstName}}">
-                    </div>
-                    <div class="candidate-list-details">
-                      <div class="candidate-list-info">
-                        <div class="candidate-list-title">
-                          <h5 class="mb-0">{{student.firstName}} {{student.lastName}}</h5>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="candidate-list-favourite-time text-center">
-                    <span class="candidate-list-time order-1">{{ student.gender}}</span>
-                  </td>
-                  <td>
-                    <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                      <li (click)="onProfile(student.id)"> <mat-icon>edit</mat-icon></li>
-                      <li (click)="onDelete(student.id)"><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><mat-icon>delete</mat-icon></a></li>
-                    </ul>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="table-responsive">
           </div>
+          <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+
+              Position Column
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+              </ng-container>
+
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.firstName}} {{element.lastName}}</td>
+              </ng-container>
+
+              <!-- Weight Column -->
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> Email </th>
+                <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="gender">
+                <th mat-header-cell *matHeaderCellDef> Gender </th>
+                <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button (click)="onProfile(element.id)"><mat-icon>edit</mat-icon></button>&nbsp;
+                  <button class="deletes" mat-icon-button (click)="onDelete(element.id)">
+                    <mat-icon>delete</mat-icon></button>
+                </td>
+
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+              aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div>
+
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<table class="table excel-table" id="exceltable" >
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Course</th>
+      <th scope="col">Gender</th>
+      <th scope="col">dob</th>
+      <th scope="col">email</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let item of students">
+    <tr>
+      <th scope="row">{{ item.id}}</th>
+      <td>{{ item.firstName}}</td>
+      <td>{{ item.lastName}}</td>
+      <td>{{ item.code}}</td>
+      <td>{{ item.gender}}</td>
+      <td>{{ item.dob}}</td>
+      <td>{{ item.email}}</td>
+    </tr>
+    
+  </tbody>
+</table>

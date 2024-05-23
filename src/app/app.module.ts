@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
 import {MatIconModule} from '@angular/material/icon'; 
 import {MatButtonModule} from '@angular/material/button'; 
+import {MatTableModule} from '@angular/material/table'; 
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +15,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { StudentComponent } from './student/student.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatBadgeModule} from '@angular/material/badge'; 
+
 
 const notifierDefaultOptions: NotifierOptions = {
   position: {
@@ -64,6 +68,9 @@ const notifierDefaultOptions: NotifierOptions = {
     PageNotFoundComponent
   ],
   imports: [
+    MatBadgeModule,
+    MatPaginatorModule,
+    MatTableModule,
     MatButtonModule,
     MatIconModule,
     NotifierModule.withConfig(notifierDefaultOptions),

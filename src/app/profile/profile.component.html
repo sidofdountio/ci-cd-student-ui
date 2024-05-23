@@ -5,17 +5,20 @@
                 <div class="card-body">
                     <div class="account-settings">
                         <div class="user-profile">
-                            <div class="user-avatar">
+                            <div *ngIf="diplayImage" class="user-avatar">
+                                <img [src]="diplayImage" alt="">
+                            </div>
+                            <div class="user-avatar" *ngIf="!diplayImage" >
                                 <img [src]="studentById.imageUrl" alt="{{studentById.firstName }}">
                             </div>
-                            <input type="file" class="file-input" (change)="onFileSelected($event,studentById.id)" #fileUpload />
+                            <input type="file" class="file-input" (change)="onFileSelected($event,studentById.id)"
+                                #fileUpload />
                             <div class="file-upload">
                                 {{fileName || "No file uploaded yet."}}
                                 <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
                                     <mat-icon>attach_file</mat-icon>
                                 </button>
                             </div>
-
                         </div>
 
                     </div>
@@ -25,62 +28,72 @@
         <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12" *ngIf="studentById">
             <div class="card h-100 p-2">
                 <div class="card-body">
-                    <form #studentForm="ngForm" (ngSubmit)="onUpdate(studentForm.value)">
-                        <div class="row gutters">
+                    <form #studentForm="ngForm">
+                        <div class="row gutters p-3">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <h3 class="mb-3 text-primary">Student Details</h3>
                             </div>
-
-
+                            <input type="hidden" name="id" id="id" ngModel="{{studentById.id}}" />
+                            <input type="hidden" name="imageUrl" id="imageUrl" ngModel="{{studentById.imageUrl}}" />
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="fullName">First Name</label>
-                                    <input type="text" class="form-control" name="firstName"
-                                        value="{{studentById.firstName}}">
+                                    <input type="text" class="form-control" name="firstName" id="firstName"
+                                        ngModel="{{studentById.firstName}}" />
                                 </div>
                                 <div class="form-group">
                                     <label for="fullName">Last Name</label>
-                                    <input type="text" class="form-control" name="firstName"
-                                        value="{{studentById.lastName}}">
+                                    <input type="text" class="form-control" name="lastName" id="lastName"
+                                        placeholder="{{studentById.lastName}}" ngModel="{{studentById.lastName}}" />
                                 </div>
 
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="eMail">Email</label>
-                                    <input type="email" class="form-control" name="email"
-                                        placeholder="{{studentById.email}}">
+                                    <input type="email" class="form-control" name="email" id="email"
+                                        ngModel="{{studentById.email}}" />
                                 </div>
                                 <div class="form-group">
                                     <label for="phone">Gender</label>
-                                    <input type="text" class="form-control" name="gender">
+                                    <input type="text" class="form-control" name="gender" id="gender"
+                                        ngModel="{{studentById?.gender}}" />
                                 </div>
                             </div>
                         </div>
                         <div class="row gutters">
-
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="Street">Date of birth</label>
-                                    <input type="name" class="form-control" name="dob" value="{{studentById.dob}}">
+                                    <input type="date" class="form-control" name="dob" id="dob"
+                                        ngModel="{{studentById?.dob}}" />
                                 </div>
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mb-3">
                                 <div class="form-group">
                                     <label for="ciTy">Place of birth</label>
-                                    <input type="name" class="form-control" name="placeOfBorn"
-                                        value="{{studentById.placeOfBorn}}">
+                                    <input type="name" class="form-control" name="placeOfBorn" id="placeOfBorn"
+                                        placeholder="Place of born" ngModel="{{studentById.placeOfBorn}}" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row gutters mb-4">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label for="Street">Course</label>
+                                    <input type="code" class="form-control" name="code" id="code"
+                                        ngModel="{{studentById?.code}}" />
                                 </div>
                             </div>
                         </div>
                         <div class="row gutters ">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <div class="text-right">
-                                    <button type="button" id="submit" name="submit"
-                                        class="btn btn-danger">Cancel</button>
+                                <div class="text-right ">
+                                    <button type="button" class="btn btn-danger" (click)="goBack()">Go back</button>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <button type="button" id="submit" name="submit"
-                                        class="btn btn-primary">Update</button>
+                                    <button type="button" (click)="onUpdate(studentForm.value)"
+                                        class="btn btn-primary">Save Change</button>
                                 </div>
                             </div>
                         </div>

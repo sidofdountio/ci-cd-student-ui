@@ -37,8 +37,16 @@ export class StudentService {
       )
   }
 
-  saveStudents(student: Student): Observable<Student> {
+  saveStudent(student: Student): Observable<Student> {
     return this.http.post<Student>(`${this.URL}`, student)
+      .pipe(
+        tap(console.log),
+        catchError(this.handlerError)
+      )
+  }
+
+  editStudent(student: Student): Observable<Student> {
+    return this.http.put<Student>(`${this.URL}`, student)
       .pipe(
         tap(console.log),
         catchError(this.handlerError)
@@ -55,6 +63,15 @@ export class StudentService {
 
   getGreeting(): Observable<string> {
     return this.http.get<string>(`${this.URL}`)
+      .pipe(
+        tap(console.log),
+        catchError(this.handlerError)
+      )
+  }
+
+
+  deleteStudent(id: number): Observable<void> {
+    return this.http.delete<Student>(`${this.URL}/delete/${id}`)
       .pipe(
         tap(console.log),
         catchError(this.handlerError)
